@@ -6,6 +6,12 @@ init:
 
 clusterDomain: cluster.local
 
+# Custom values for Google Cloud SQL
+cloudsql:
+  project: dega-224221
+  region: us-central1
+  instance: factlypostgres
+
 keycloak:
   replicas: 1
 
@@ -34,6 +40,17 @@ keycloak:
 
   ## Additional sidecar containers, e. g. for a database proxy, such as Google's cloudsql-proxy
   extraContainers: |
+    - name: cloudsql-proxy
+      image: gcr.io/cloudsql-docker/gce-proxy:1.11
+      command:
+        - /cloud_sql_proxy
+      args:
+        - -instances={{ .Values.cloudsql.project }}:{{ .Values.cloudsql.region }}:{{ .Values.cloudsql.instance }}=tcp:5432
+        - -credential_file=/secrets/cloudsql/credentials.json
+      volumeMounts:
+        - name: cloudsql-creds
+          mountPath: /secrets/cloudsql
+          readOnly: true
 
   ## Custom script that is run before Keycloak is started.
   preStartScript:
@@ -140,6 +157,9 @@ keycloak:
 
   ## Add additional volumes and mounts, e. g. for custom themes
   extraVolumes: |
+    - name: cloudsql-creds
+      secret:
+        secretName: postgres-secret
   extraVolumeMounts: |
 
   podDisruptionBudget: {}
@@ -186,7 +206,7 @@ keycloak:
   ## Persistence configuration
   persistence:
     # If true, the Postgres chart is deployed
-    deployPostgres: true
+    deployPostgres: false
 
     # The database vendor. Can be either "postgres", "mysql", "mariadb", or "h2"
     dbVendor: postgres 
@@ -200,12 +220,12 @@ keycloak:
     existingSecretKey: password
 
     dbName: keycloak
-    dbHost: mykeycloak
+    dbHost: 127.0.0.1
     dbPort: 5432
-    dbUser: keycloak
+    dbUser: postgres
 
     # Only used if no existing secret is specified. In this case a new secret is created
-    dbPassword: ""
+    dbPassword: postgres
 
 postgresql:
   ### PostgreSQL User to create.
