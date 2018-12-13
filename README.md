@@ -59,3 +59,8 @@ Command to create a secret from the service account
 ```
 kubectl create secret generic cloudsql-instance-credentials --from-file=credentials.json=sa/fadepgad.json
 ```
+
+Command to create a realm secret from the jhipster-realm.json
+```
+kubectl create secret generic realm-secret --from-file=realm.json=keycloak/realm-config/jhipster-realm.json
+```
