@@ -55,3 +55,7 @@ Following is the command to get the password for the keycloak instance:
 kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
 ```
 
+Command to create a secret from the service account
+```
+kubectl create secret generic cloudsql-instance-credentials --from-file=credentials.json=sa/fadepgad.json
+```

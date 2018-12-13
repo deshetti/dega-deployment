@@ -159,7 +159,7 @@ keycloak:
   extraVolumes: |
     - name: cloudsql-creds
       secret:
-        secretName: postgres-secret
+        secretName: cloudsql-instance-credentials
   extraVolumeMounts: |
 
   podDisruptionBudget: {}
