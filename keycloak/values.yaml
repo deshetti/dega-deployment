@@ -165,8 +165,8 @@ keycloak:
         secretName: realm-secret
   extraVolumeMounts: |
     - name: realm-secret
-          mountPath: "/realm/"
-          readOnly: true
+      mountPath: "/realm/"
+      readOnly: true
 
   podDisruptionBudget: {}
     # maxUnavailable: 1
