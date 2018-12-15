@@ -56,7 +56,7 @@ keycloak:
   preStartScript:
 
   ## Additional arguments to start command e.g. -Dkeycloak.import= to load a realm
-  extraArgs: -Dkeycloak.import=/realm/realm.json
+  extraArgs: -Dkeycloak.import=/realm/realm.json, -Dkeycloak.migration.strategy=IGNORE_EXISTING
 
   ## Username for the initial Keycloak admin user
   username: keycloak
