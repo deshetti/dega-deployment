@@ -64,3 +64,17 @@ Command to create a realm secret from the jhipster-realm.json
 ```
 kubectl create secret generic realm-secret --from-file=realm.json=keycloak/realm-config/jhipster-realm.json
 ```
+
+Command to create a realm users secret from the jhipster-users-0.json
+```
+kubectl create secret generic realm-users-secret --from-file=realm-users.json=keycloak/realm-config/jhipster-users-0.json
+```
+
+Create a ConfigMap for realm-config files:
+```
+kubectl create configmap realm-config --from-file=keycloak/realm-config/
+```
+
+keycloak gCQuMXeKhx
+
+helm install --name keycloak -f keycloak/values.yaml stable/keycloak -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=keycloak/realm-config -Dkeycloak.migration.strategy=IGNORE_EXISTING
