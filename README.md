@@ -1,5 +1,11 @@
 # Dega Deployment
 
+## Pending
+1. Using Namespaces in Kubernetes
+2. Setup backups and restore mechanisms
+3. Setting up SSL
+4. Secure Helm/Tiller
+
 ## Enable APIs
 
 Enable the following APIs on Google Cloud Console:
@@ -23,20 +29,8 @@ The tutorial explains the steps to connect t
 gcloud sql instances describe [DB Instance ID] | grep connectionName
 ```
 2. Create a Database with the name keycloak
+3. Create a service account with admin rights to the database
 
-
-
-Create secret using the following command:
-
-```
-kubectl create -f secrets/postgres.yaml
-```
-
-Confirm the secret is created by the following command:
-
-```
-kubectl get secrets
-```
 
 Following are some articles that provide more information on Kuberenetes:
 
@@ -44,16 +38,7 @@ Following are some articles that provide more information on Kuberenetes:
 
 [Steps for connecting to Google Cloud SQL from Kuberenetes](https://cloud.google.com/sql/docs/postgres/connect-kubernetes-engine)
 
-## Install Keycloak
-```
-helm install --name keycloak -f keycloak/values.yaml stable/keycloak
-```
-
-Following is the command to get the password for the keycloak instance:
-
-```
-kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
-```
+## Create Secrets required for Keycloak
 
 Command to create a secret from the service account
 ```
@@ -65,6 +50,42 @@ Command to create a realm secret from the jhipster-realm.json (the realm file in
 kubectl create secret generic realm-secret --from-file=realm.json=keycloak/realm-config/jhipster-realm.json
 ```
 
-keycloak 75L7axQQWt
+Confirm the secret is created by the following command:
+
+```
+kubectl get secrets
+```
+
+## Install Keycloak
+
+Following command installs the version 4.0.7 version of helm chart for keycloak. appVersion: 4.5.0.Final
+```
+helm install --name keycloak -f keycloak/values.yaml stable/keycloak --version 4.0.7
+```
+
+Following is the command to get the password for the keycloak instance:
+
+```
+kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
+```
+
+## Install MongoDB
+
+Mongo root, yZUKxte0K6
+
+## Connect to MongoDB from outside the cluster
+kubectl port-forward --namespace default svc/mongo-mongodb 27017:27017 & mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
+
+## Delete Keycloak Instance
+
+Following are the commands to delete the Keycloak installation from Kuberenetes:
+
+```
+helm delete keycloak
+helm del --purge keycloak
+```
+
+
+keycloak JsaZdVBOrM
 
 helm install --name keycloak -f keycloak/values.yaml stable/keycloak -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=keycloak/realm-config -Dkeycloak.migration.strategy=IGNORE_EXISTING
