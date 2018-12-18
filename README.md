@@ -71,7 +71,11 @@ kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.passwor
 
 ## Install MongoDB
 
-Mongo root, yZUKxte0K6
+helm install --name mongo -f mongo/values.yaml stable/mongodb
+
+## Increasing the number of replicas
+kubectl scale statefulset mongo-mongodb-secondary --replicas=3
+kubectl scale statefulset mongo-mongodb-primary --replicas=3
 
 ## Connect to MongoDB from outside the cluster
 kubectl port-forward --namespace default svc/mongo-mongodb 27017:27017 & mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
