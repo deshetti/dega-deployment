@@ -24,7 +24,7 @@ spec:
             - |
                 while true
                 do
-                  rt=$(nc -z -w 1 gateway-mongodb 27017)
+                  rt=$(nc -z -w 1 mongodb 27017)
                   if [ $? -eq 0 ]; then
                     echo "DB is UP"
                     break
@@ -45,9 +45,9 @@ spec:
         - name: SPRING_DATA_MONGODB_DATABASE
           value: gateway
         - name: SPRING_DATA_MONGODB_URI
-          value: "mongodb://gateway-mongodb-0.gateway-mongodb.default:27017"
+          value: "mongodb://mongodb-0.mongodb.default:27017"
         - name: SPRING_DATA_JEST_URI
-          value: http://gateway-elasticsearch.default.svc.cluster.local:9200
+          value: http://elasticsearch.default.svc.cluster.local:9200
         - name: SPRING_SLEUTH_PROPAGATION_KEYS
           value: "x-request-id,x-ot-span-context"
         - name: JAVA_OPTS
