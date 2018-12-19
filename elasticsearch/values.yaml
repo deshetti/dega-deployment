@@ -63,8 +63,8 @@ cluster:
 
 client:
   name: client
-  #replicas: 2
-  replicas: 1
+  replicas: 2
+  #replicas: 1
   serviceType: ClusterIP
   loadBalancerIP: {}
   loadBalancerSourceRanges: {}
@@ -108,8 +108,8 @@ client:
 master:
   name: master
   exposeHttp: false
-  #replicas: 3
-  replicas: 1
+  replicas: 3
+  #replicas: 1
   heapSize: "512m"
   persistence:
     enabled: true
@@ -143,8 +143,8 @@ master:
 data:
   name: data
   exposeHttp: false
-  #replicas: 2
-  replicas: 1
+  replicas: 2
+  #replicas: 1
   heapSize: "1536m"
   persistence:
     enabled: true

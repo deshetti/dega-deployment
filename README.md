@@ -81,7 +81,7 @@ kubectl scale statefulset mongo-mongodb-primary --replicas=3
 kubectl port-forward --namespace default svc/mongo-mongodb 27017:27017 & mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
 
 ## Install Elasticsearch
-helm install --name elasticsearch stable/elasticsearch
+helm install --name elasticsearch -f elasticsearch/values.yaml stable/elasticsearch
 
 ## Install Registry (Consul and more)
 kubectl
