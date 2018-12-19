@@ -80,6 +80,12 @@ kubectl scale statefulset mongo-mongodb-primary --replicas=3
 ## Connect to MongoDB from outside the cluster
 kubectl port-forward --namespace default svc/mongo-mongodb 27017:27017 & mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
 
+## Install Elasticsearch
+helm install --name elasticsearch stable/elasticsearch
+
+## Install Registry (Consul and more)
+kubectl
+
 ## Delete Keycloak Instance
 
 Following are the commands to delete the Keycloak installation from Kuberenetes:
