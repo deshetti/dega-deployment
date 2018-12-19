@@ -6,6 +6,21 @@
 3. Setting up SSL
 4. Secure Helm/Tiller
 
+## Steps before starting the deployment
+To generate the missing Docker image(s), please run:
+  ./gradlew bootWar -Pprod jibDockerBuild in /Users/deshetti/Projects/dega/dega-core
+  ./gradlew bootWar -Pprod jibDockerBuild in /Users/deshetti/Projects/dega/dega-factcheck
+  ./gradlew bootWar -Pprod jibDockerBuild in /Users/deshetti/Projects/dega/dega-gateway
+
+You will need to push your image to a registry. If you have not done so, use the following commands to tag and push the images:
+  docker image tag core gcr.io/dega-224221/core
+  gcloud docker -- push gcr.io/dega-224221/core
+  docker image tag factcheck gcr.io/dega-224221/factcheck
+  gcloud docker -- push gcr.io/dega-224221/factcheck
+  docker image tag gateway gcr.io/dega-224221/gateway
+  gcloud docker -- push gcr.io/dega-224221/gateway
+
+
 ## Enable APIs
 
 Enable the following APIs on Google Cloud Console:
@@ -97,5 +112,3 @@ helm del --purge keycloak
 
 
 keycloak JsaZdVBOrM
-
-helm install --name keycloak -f keycloak/values.yaml stable/keycloak -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=keycloak/realm-config -Dkeycloak.migration.strategy=IGNORE_EXISTING
