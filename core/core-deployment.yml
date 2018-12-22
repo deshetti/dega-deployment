@@ -45,7 +45,7 @@ spec:
         - name: SPRING_DATA_MONGODB_DATABASE
           value: core
         - name: SPRING_DATA_MONGODB_URI
-          value: "mongodb://elasticdb-0.elasticdb.default:27017"
+          value: "mongodb://mongodb-0.mongodb.default:27017"
         - name: SPRING_DATA_JEST_URI
           value: http://elasticsearch.default.svc.cluster.local:9200
         - name: SPRING_SLEUTH_PROPAGATION_KEYS
