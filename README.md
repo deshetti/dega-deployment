@@ -28,10 +28,10 @@ You will need to push your image to a registry. If you have not done so, use the
 
 Enable the following APIs on Google Cloud Console:
 
-Cloud Shell API
-Google Cloud SQL Admin API
-Google Container Registry API
-Google Kubernetes Engine API
+* Cloud Shell API
+* Google Cloud SQL Admin API
+* Google Container Registry API
+* Google Kubernetes Engine API
 
 ## Install Helm
 ```
