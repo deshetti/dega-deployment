@@ -40,7 +40,7 @@ sh helm/add_helm.sh
 
 ## Connect to Postgres
 
-The tutorial explains the steps to connect t
+The [tutorial](https://codelabs.developers.google.com/codelabs/cloud-postgresql-gke-memegen/#0) explains the steps to connect to Cloud SQL from Kubernetes: 
 
 1. Create Postgres Instance on Google Cloud SQL. You could get the connection name for the instance using the following command:
 ```
