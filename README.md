@@ -17,11 +17,11 @@ To generate the missing Docker image(s), please run:
 You will need to push your image to a registry. If you have not done so, use the following commands to tag and push the images:
 ```
   docker image tag core dega/core:latest
-  gcloud docker -- push gdega/core:latest
+  docker push dega/core:latest
   docker image tag factcheck dega/factcheck:latest
-  gcloud docker -- push dega/factcheck:latest
+  docker push dega/factcheck:latest
   docker image tag gateway dega/gateway:latest
-  gcloud docker -- push dega/gateway:latest
+  docker push dega/gateway:latest
 ```
 
 ## Enable APIs
